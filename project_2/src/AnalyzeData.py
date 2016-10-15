@@ -58,6 +58,7 @@ def main():
     nx.draw(g, pos=pos)
     #plt.show()
     plt.savefig("full_bip.png")
+    plt.clf()
 
     # project bipartite graph onto user nodes
     U1 = bipartite.projected_graph(g, users)
@@ -108,7 +109,7 @@ def main():
     plt.clf()
 
     # project bipartite graph onto user nodes
-    M2 = bipartite.projected_graph(g, movies)
+    M2 = bipartite.weighted_projected_graph(g, movies)
     nx.draw(M2)
     # plt.show()
     plt.savefig('Movies_one_mode_weighted.png')
