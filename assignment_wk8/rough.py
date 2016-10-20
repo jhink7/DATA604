@@ -3,7 +3,9 @@ from nltk.corpus import gutenberg
 import string
 import pandas as pd
 import matplotlib.pyplot as plt
+import pylab
 
+# helper method to remove puncutation
 table = string.maketrans("","")
 def trans_punc(s):
     return s.translate(table, string.punctuation)
@@ -40,16 +42,18 @@ fig, ax = plt.subplots(1, 1)
 ax.get_xaxis().set_visible(False)   # Hide Ticks
 hammy_df.plot.bar(table=False, ax=ax)
 plt.savefig('words.png')
+plt.clf()
 
 hammy_df['CummSum'] = hammy_df['Frequency'].cumsum()
-
 hammy_df['GtHalf'] = hammy_df['CummSum'] > (len(hammy_all_filtered) / 2.0)
+hammy_df.index = range(1,len(hammy_df) + 1)
 
 print hammy_df
 
+# find how many words sum to be half of the total words
+half_point = hammy_df['GtHalf'] == True
+print hammy_df[half_point].head(1)
 
-
-
-
-
+plt.loglog(hammy_df.index,hammy_df['Frequency'])
+plt.savefig('zipf.png')
 
